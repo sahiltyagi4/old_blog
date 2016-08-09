@@ -1,6 +1,6 @@
 ---
 layout: page
-title: About Sahil
+title: About Me
 permalink: /about/
 tags: about
 ---
