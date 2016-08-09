@@ -16,12 +16,12 @@
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Sahil's Blog" href="/feed.xml" />
 
     <!-- Custom CSS -->
-    <link rel="stylesheet" href="/css/pixyll.css?201608091721" type="text/css">
+    <link rel="stylesheet" href="/css/pixyll.css?201608092050" type="text/css">
 
     <!-- Fonts -->
     
-    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
-    <link href='//fonts.googleapis.com/css?family=Lato:900,300&subset=latin-ext,latin' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Merriweather:900,900italic,300,300italic' rel='stylesheet' type='text/css'>
+    <link href='//fonts.googleapis.com/css?family=Lato:900,300' rel='stylesheet' type='text/css'>
     
     
 
@@ -131,623 +131,838 @@
   
   <span class="post-meta small">
   
-    11 minute read
+    9 minute read
   
   </span>
 </div>
 
 <article class="post-content">
-  <p>Hadoop, formally called Apache Hadoop, is an Apache Software Foundation project and open source software platform for scalable, distributed computing. Hadoop data systems are not limited in their scale. More hardware and clusters can be added to handle more load without reconfiguration or purchasing expensive software licenses. For decades, organizations relied primarily on relational databases (RDBMS) in order to store and query their data. But relational databases are limited in the types of data they can store and can only scale so far before companies need to add more RDBMS licenses and dedicated hardware. Thus, there was no easy or cost-efficient way for companies to use the information stored in the vast majority of non-relational data, often referred to as “unstructured” data. 
-Thanks to greater digitization of business processes and an influx of new devices and machines that generate raw data, the volume of business data has grown precipitously, ushering in the era of “big data.” The Hadoop project provided a viable solution by making it possible and cost-effective to store and process an unlimited volume of data.</p>
-
-<p>The server I used for the system belonged to Hetzner, a German company that provides 24x7 support, with the overall costs involving a one time activation fee of €116 + a monthly fee €100. Pretty decent I would say!
-If you doesn’t feel inclined to purchase a didicated server, you can also setup the Hadoop infrastructure on your local system by setting up what is called a virtual machine. Refer to my post on setting up Hadoop using Oracle Virtualbox…</p>
-
-<p>The cluster we are going to setup will consist of a single node (machine), with the same m/c working as a namenode, datanode, resourcemanager and nodemanager.So I guess it’s time to get started with the installation!</p>
+  <p>Hadoop, formally called Apache Hadoop, is an Apache Software Foundation project and open source software platform for scalable, distributed computing.
+Following are the installation steps:</p>
 
 <ul>
   <li>
-    <p>Check the ip of the server by running the command:
+    <p>Check the ip of the server by running the command:</p>
+
+    <p><code class="highlighter-rouge">
   $ ifconfig
-  Let’s say the ip looks somewhat like 148.xxx.xx.136</p>
+ </code></p>
+
+    <p>Let’s say the ip looks somewhat like xxx.xxx.xx.xxx</p>
   </li>
   <li>
-    <p>Check the hostname provided by Hetzner by running nslookup on the remote machine:
-  $ nslookup 148.xxx.xx.135</p>
+    <p>Check the hostname provided by Hetzner by running nslookup on the remote machine:</p>
+
+    <p><code class="highlighter-rouge">
+  $ nslookup xxx.xxx.xx.xxx
+ </code></p>
   </li>
   <li>
-    <p>SSH to the server from your local machine:
-  $ ssh root@148.xxx.xx.136</p>
+    <p>SSH to the server from your local machine:</p>
+
+    <p><code class="highlighter-rouge">
+  $ ssh root@xxx.xxx.xx.xxx
+ </code></p>
   </li>
 </ul>
 
 <p>You should see something like the following after entering credentials:
-	root@Ubuntu-1204-precise-64-minimal ~ #</p>
+	root@Ubuntu-1204-precise-64-minimal ~</p>
 
 <ul>
   <li>
-    <p>Edit /etc/hostname :
-  # vim /etc/hostname</p>
+    <p>Edit /etc/hostname :</p>
+
+    <p><code class="highlighter-rouge">
+   vim /etc/hostname
+  </code></p>
   </li>
   <li>
     <p>Change all instances of the current  hostname (Ubuntu-1204-precise-64-minimal) to the Hostname provided by Hetzner and save the file.
   If everything goes well, you should see an entry in /etc/hosts like the one shown below.
-  148.xxx.xx.135 	static.135.xx.xxx.148.clients.your-server.de</p>
+  xxx.xxx.xx.xxx 	static.xxx.xxx.xx.xxx.clients.your-server.de</p>
 
     <p>If you don’t see such an entry, add it manually.</p>
   </li>
   <li>
-    <p>Edit /etc/hosts :
+    <p>Edit <b>/etc/hosts</b> :</p>
+
+    <p><code class="highlighter-rouge">
   $ vim /etc/hosts
-  (If its empty just enter machine name)</p>
+ </code></p>
+
+    <p>(If its empty just enter machine name)</p>
   </li>
   <li>
     <p>Again change the hostname with $ vim /etc/hostname command</p>
   </li>
   <li>
-    <p>Reboot the machine:
-  $ sudo reboot</p>
+    <p>Reboot the machine:</p>
+
+    <p><code class="highlighter-rouge">
+  $ sudo reboot
+ </code></p>
   </li>
   <li>
-    <p>Download the .tar.gz file of the latest JDK from http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.htm
-  lwget –no-cookies –header “Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com” “http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz”</p>
+    <p>Download the .tar.gz file of the latest JDK from <b>http://www.oracle.com/technetwork/java/javase/downloads/jdk7-downloads-1880260.htm
+  lwget –no-cookies –header “Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com” “http://download.oracle.com/otn-pub/java/jdk/7u51-b13/jdk-7u51-linux-x64.tar.gz”</b></p>
 
-    <p>UPDATE :</p>
+    <p><b>UPDATE</b> :</p>
 
-    <p>NOTE-1 : The version mentioned here is not the latest version of java. If you want to download the latest version, get the appropriate .tar.gz url. If you want the 7U51 version (used in the document) get the new link from archives page.</p>
+    <p><b>NOTE-1</b> : The version mentioned here is not the latest version of java. If you want to download the latest version, get the appropriate .tar.gz url. If you want the 7U51 version (used in the document) get the new link from archives page.</p>
 
-    <p>NOTE-2 : the wget command used above is not working anymore - use wget –no-check-certificate –no-cookies –header “Cookie:oraclelicense=accept-securebackup-cookie” instead of 
-  wget –no-cookies –header “Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com” on your local machine.</p>
+    <p><b>NOTE-2</b> : if the wget command used above doesn’t work, use <b>wget –no-check-certificate –no-cookies –header “Cookie:oraclelicense=accept-securebackup-cookie”</b> instead of 
+  <b>wget –no-cookies –header “Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com”</b> on your local machine.</p>
   </li>
   <li>
-    <p>Create a folder for the java setup on the remote machine:
+    <p>Create a folder for the java setup on the remote machine:</p>
+
+    <p><code class="highlighter-rouge">
   $ mkdir /usr/local/java
-  $ cd /usr/local/java</p>
-  </li>
-  <li>
-    <p>Copy the java setup to remote machine by running the following command on your local machine :
-  $ scp jdk-7u51-linux-x64.tar.gz root@148.xxx.xx.135:/usr/local/java/</p>
-  </li>
-  <li>
-    <p>Run the following command (replace jdk-7u51 with the corresponding version name) on the remote machine:
   $ cd /usr/local/java
-  $ sudo tar -xvzf jdk-7u51-linux-x64.tar.gz</p>
+ </code></p>
   </li>
   <li>
-    <p>Check the name of the extracted folder (marked in bold, this may differ for you, and you need to use that particular name in the steps that follow):
-  root@rq-namenode /usr/local/java # ls -a
-      .  ..  jdk1.7.0_51  jdk-7u51-linux-x64.tar.gz</p>
+    <p>Copy the java setup to remote machine by running the following command on your local machine :</p>
+
+    <p><code class="highlighter-rouge">
+  $ scp jdk-7u51-linux-x64.tar.gz root@148.xxx.xx.135:/usr/local/java/
+ </code></p>
   </li>
   <li>
-    <p>(Optional) At this point, you can remove the .tar.gz file
-  rm jdk-7u51-linux-x64.tar.gz</p>
+    <p>Run the following command (replace jdk-7u51 with the corresponding version name) on the remote machine:</p>
+
+    <p><code class="highlighter-rouge">
+  $ cd /usr/local/java
+  $ sudo tar -xvzf jdk-7u51-linux-x64.tar.gz
+ </code></p>
   </li>
   <li>
-    <p>$ vim /etc/profile</p>
+    <p>Check the name of the extracted folder (marked in bold, this may differ for you, and you need to use that particular name in the steps that follow):</p>
+
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  ls -a
+      .  ..  jdk1.7.0_51  jdk-7u51-linux-x64.tar.gz
+ </code></p>
   </li>
   <li>
-    <p>Add the following lines at the end of the file, and save the file (Esc :wq):
+    <p>(Optional) At this point, you can remove the .tar.gz file</p>
+
+    <p><code class="highlighter-rouge">
+  rm jdk-7u51-linux-x64.tar.gz
+ </code></p>
+  </li>
+  <li>
+    <p>$ <b>vim /etc/profile</b></p>
+  </li>
+  <li>
+    <p>Add the following lines at the end of the file, and save the file (Esc :wq):</p>
+
+    <p><code class="highlighter-rouge">
   JAVA_HOME=/usr/local/java/jdk1.7.0_51
   PATH=$PATH:$HOME/bin:$JAVA_HOME/bin
   export JAVA_HOME
-  export PATH</p>
+  export PATH
+ </code></p>
   </li>
   <li>
     <p>Inform the system where your Oracle Java JDK is located. This will tell the system that the new Oracle Java version is available for use.</p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –install “/usr/bin/java” “java” “/usr/local/java/jdk1.7.0_79/bin/java” 1</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk1.7.0_79/bin/java" 1
+ </code></p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –install “/usr/bin/javac” “javac” “/usr/local/java/jdk1.7.0_51/bin/javac” 1</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk1.7.0_51/bin/javac" 1
+ </code></p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –install “/usr/bin/javaws” “javaws” “/usr/local/java/jdk1.7.0_51/bin/javaws” 1</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/local/java/jdk1.7.0_51/bin/javaws" 1
+ </code></p>
   </li>
   <li>
     <p>Inform the system that Oracle Java JDK must be the default Java.</p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –set java /usr/local/java/jdk1.7.0_79/bin/java</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --set java /usr/local/java/jdk1.7.0_79/bin/java
+ </code></p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –set javac /usr/local/java/jdk1.7.0_51/bin/javac</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --set javac /usr/local/java/jdk1.7.0_51/bin/javac
+ </code></p>
 
-    <p>root@rq-namenode /usr/local/java # sudo update-alternatives –set javaws /usr/local/java/jdk1.7.0_51/bin/javaws</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  sudo update-alternatives --set javaws /usr/local/java/jdk1.7.0_51/bin/javaws
+ </code></p>
   </li>
   <li>
-    <p>Reload your system wide PATH /etc/profile :
-  root@rq-namenode /usr/local/java # . /etc/profile</p>
+    <p>Reload your system wide PATH <b>/etc/profile</b> :</p>
+
+    <p><code class="highlighter-rouge">
+  root@rq-namenode /usr/local/java  . /etc/profile
+ </code></p>
   </li>
   <li>
-    <p>Check that java was installed correctly:
-  root@rq-namenode ~ # java -version
-      java version “1.7.0_51”
+    <p>Check that java was installed correctly:</p>
+
+    <p><code class="highlighter-rouge">
+  root@rq-namenode ~  java -version
+      java version "1.7.0_51"
       Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
-      Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)</p>
+      Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
+ </code></p>
 
-    <p>root@rq-namenode ~ # javac -version
-      javac 1.7.0_51</p>
+    <p><code class="highlighter-rouge">
+  root@rq-namenode ~  javac -version
+      javac 1.7.0_51
+ </code></p>
   </li>
   <li>
-    <p>Install NTP (if not already installed):
-  root@rq-namenode ~ # apt-get install ntp</p>
+    <p>Install NTP (if not already installed):</p>
+
+    <p><code class="highlighter-rouge">
+  root@rq-namenode ~  apt-get install ntp
+ </code></p>
   </li>
   <li>
-    <p>sudo /etc/init.d/ntp reload</p>
+    <p><b>sudo /etc/init.d/ntp reload</b></p>
   </li>
   <li>
-    <p>Disable SELinux:
-  # apt-get install selinux-utils
-  # getenforce
-  If result is disabled or permissive, no further action is required. Otherwise
-  # setenforce 0</p>
+    <p>Disable SELinux:</p>
+
+    <p><code class="highlighter-rouge">
+   apt-get install selinux-utils
+   getenforce
+  </code></p>
+
+    <p>If result is disabled or permissive, no further action is required. Otherwise</p>
+
+    <p><code class="highlighter-rouge">
+   setenforce 0
+  </code></p>
   </li>
   <li>
-    <p>Disable IPTables:
-  # service ufw stop</p>
+    <p>Disable IPTables:</p>
+
+    <p><code class="highlighter-rouge">
+   service ufw stop
+  </code></p>
   </li>
   <li>
-    <p>Install requirements:
-  # sudo apt-get install rpm
-  # sudo apt-get install curl</p>
+    <p>Install requirements:</p>
+
+    <p><code class="highlighter-rouge">
+   sudo apt-get install rpm
+   sudo apt-get install curl
+  </code></p>
   </li>
   <li>
-    <p>Configure remote repositories and add gpg keys:
-  # wget http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.x/hdp.list -O /etc/apt/sources.list.d/hdp.list</p>
+    <p>Configure remote repositories and add gpg keys:</p>
 
-    <p>wget http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.0.6.1/hdp.list -O /etc/apt/sources.list.d/hdp.list</p>
+    <p><code class="highlighter-rouge">
+  wget http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.x/hdp.list -O /etc/apt/sources.list.d/hdp.list
+ </code></p>
 
-    <p># gpg –keyserver pgp.mit.edu –recv-keys B9733A7A07513CAD
-  # gpg -a –export 07513CAD | apt-key add -
-  # apt-get update</p>
+    <p><code class="highlighter-rouge">
+  wget http://public-repo-1.hortonworks.com/HDP/ubuntu12/2.0.6.1/hdp.list -O /etc/apt/sources.list.d/hdp.list
+ </code></p>
+
+    <p><code class="highlighter-rouge">
+   gpg --keyserver pgp.mit.edu --recv-keys B9733A7A07513CAD
+   gpg -a --export 07513CAD | apt-key add -
+   apt-get update
+  </code></p>
   </li>
   <li>
-    <p>Download companion files
-  # mkdir /tmp/hadoop
-  # cd /tmp/hadoop
-  # wget http://public-repo-1.hortonworks.com/HDP/tools/2.1.5.0/hdp_manual_install_rpm_helper_files-2.1.5.695.tar.gz
-  # tar -zxvf hdp_manual_install_rpm_helper_files-2.0.6.101.tar.gz
-  # cd hdp_manual_install_rpm_helper_files-2.0.6.101/</p>
+    <p>Download companion files</p>
+
+    <p><code class="highlighter-rouge">
+   mkdir /tmp/hadoop
+   cd /tmp/hadoop
+   wget http://public-repo-1.hortonworks.com/HDP/tools/2.1.5.0/hdp_manual_install_rpm_helper_files-2.1.5.695.tar.gz
+   tar -zxvf hdp_manual_install_rpm_helper_files-2.0.6.101.tar.gz
+   cd hdp_manual_install_rpm_helper_files-2.0.6.101/
+  </code></p>
   </li>
   <li>
-    <h1 id="cd-scripts">cd scripts</h1>
-    <p># vim usersAndGroups.sh
-  Comment the variables (using #) corresponding to the services that are not being installed (from PIG_USER to OOZIE_USER) and save the file (Esc :wq)
-  # source usersAndGroups.sh</p>
+    <p><b>cd scripts</b></p>
 
-    <p># vim directories.sh
-  Set the following variables and comment the rest:
-  DFS_NAME_DIR=”/grid/hadoop/hdfs/nn”;
-  DFS_DATA_DIR=”/grid/hadoop/hdfs/dn”;
-  FS_CHECKPOINT_DIR=”/grid/hadoop/hdfs/snn”;
-  HDFS_LOG_DIR=”/var/log/hadoop/hdfs”;
-  HDFS_PID_DIR=”/var/run/hadoop/hdfs”;
-  HADOOP_CONF_DIR=”/etc/hadoop/conf”;
-  YARN_LOCAL_DIR=”/grid/hadoop/yarn/local”;
-  YARN_LOG_DIR=”/var/log/hadoop/yarn”;
-  YARN_LOCAL_LOG_DIR=”/grid/hadoop/yarn/logs”;
-  YARN_PID_DIR=”/var/run/hadoop/yarn”;
-  MAPRED_LOG_DIR=”/var/log/hadoop/mapred”;
-  MAPRED_PID_DIR=”/var/run/hadoop/mapred”;
-  ZOOKEEPER_DATA_DIR=”/grid/hadoop/zookeeper/data”;
-  ZOOKEEPER_CONF_DIR=”/etc/zookeeper/conf”;
-  ZOOKEEPER_LOG_DIR=”/var/log/zookeeper”;
-  ZOOKEEPER_PID_DIR=”/var/run/zookeeper”;
-  SQOOP_CONF_DIR=”/etc/sqoop/conf”;</p>
+    <p><code class="highlighter-rouge">
+ vim usersAndGroups.sh
+</code></p>
 
-    <p>export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec</p>
+    <p>Comment the variables (using ) corresponding to the services that are not being installed (from PIG_USER to OOZIE_USER) and save the file (Esc :wq)</p>
 
-    <p>Save the file and source it.
-  # source directories.sh</p>
+    <p><code class="highlighter-rouge">
+ source usersAndGroups.sh
+</code></p>
   </li>
   <li>
-    <h1 id="vim-hadoopvariablessh">vim ~/hadoopVariables.sh</h1>
+    <p><b>vim directories.sh</b></p>
 
-    <p>Add the following :
-  #!/bin/sh
-  # Hadoop Users and Groups
-  # User which will own the HDFS services.
-  HDFS_USER=hdfs ;</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>  #Set the following variables and comment the rest:
 
-    <p># User which will own the YARN services.
-  YARN_USER=yarn ;</p>
+  DFS_NAME_DIR="/grid/hadoop/hdfs/nn";
 
-    <p># User which will own the MapReduce services.
-  MAPRED_USER=mapred ;</p>
+  DFS_DATA_DIR="/grid/hadoop/hdfs/dn";
 
-    <p>#set owning the ZooKeeper services.
-  ZOOKEEPER_USER=zookeeper ;</p>
+  FS_CHECKPOINT_DIR="/grid/hadoop/hdfs/snn";
 
-    <p># A common group shared by services.
-  HADOOP_GROUP=hadoop ;</p>
+  HDFS_LOG_DIR="/var/log/hadoop/hdfs";
 
-    <p># Hadoop Service - HDFS
-  # Space separated list of directories where NameNode will store file system image. For example, /grid/hadoop/hdfs/nn /grid1/hadoop/hdfs/nn
-  DFS_NAME_DIR=”/grid/hadoop/hdfs/nn”;</p>
+  HDFS_PID_DIR="/var/run/hadoop/hdfs";
 
-    <p># Space separated list of directories where DataNodes will store the blocks. For example, /grid/hadoop/hdfs/dn /grid1/hadoop/hdfs/dn /grid2/hadoop/hdfs/dn
-  DFS_DATA_DIR=”/grid/hadoop/hdfs/dn”;</p>
+  HADOOP_CONF_DIR="/etc/hadoop/conf";
 
-    <p># Space separated list of directories where SecondaryNameNode will store checkpoint image. For example, /grid/hadoop/hdfs/snn /grid1/hadoop/hdfs/snn /grid2/hadoop/hdfs/snn
-  FS_CHECKPOINT_DIR=”/grid/hadoop/hdfs/snn”;</p>
+  YARN_LOCAL_DIR="/grid/hadoop/yarn/local";
 
-    <p># Directory to store the HDFS logs.
-  HDFS_LOG_DIR=”/var/log/hadoop/hdfs”;</p>
+  YARN_LOG_DIR="/var/log/hadoop/yarn";
 
-    <p># Directory to store the HDFS process ID.
-  HDFS_PID_DIR=”/var/run/hadoop/hdfs”;</p>
+  YARN_LOCAL_LOG_DIR="/grid/hadoop/yarn/logs";
 
-    <p># Directory to store the Hadoop configuration files.
-  HADOOP_CONF_DIR=”/etc/hadoop/conf”;</p>
+  YARN_PID_DIR="/var/run/hadoop/yarn";
 
-    <p># Hadoop Service - YARN 
-  # Space separated list of directories where YARN will store temporary data. For example, /grid/hadoop/yarn/local /grid1/hadoop/yarn/local /grid2/hadoop/yarn/local
-  YARN_LOCAL_DIR=”/grid/hadoop/yarn/local”;</p>
+  MAPRED_LOG_DIR="/var/log/hadoop/mapred";
 
-    <p># Directory to store the YARN logs.
-  YARN_LOG_DIR=”/var/log/hadoop/yarn”;</p>
+  MAPRED_PID_DIR="/var/run/hadoop/mapred";
 
-    <p># Space separated list of directories where YARN will store container log data. For example, /grid/hadoop/yarn/logs /grid1/hadoop/yarn/logs /grid2/hadoop/yarn/logs
-  YARN_LOCAL_LOG_DIR=”/grid/hadoop/yarn/logs”;</p>
+  ZOOKEEPER_DATA_DIR="/grid/hadoop/zookeeper/data";
 
-    <p># Directory to store the YARN process ID.
-  YARN_PID_DIR=”/var/run/hadoop/yarn”;</p>
+  ZOOKEEPER_CONF_DIR="/etc/zookeeper/conf";
 
-    <p># Hadoop Service - MAPREDUCE
-  # Directory to store the MapReduce daemon logs.
-  MAPRED_LOG_DIR=”/var/log/hadoop/mapred”;</p>
+  ZOOKEEPER_LOG_DIR="/var/log/zookeeper";
 
-    <p># Directory to store the mapreduce jobhistory process ID.
-  MAPRED_PID_DIR=”/var/run/hadoop/mapred”;</p>
+  ZOOKEEPER_PID_DIR="/var/run/zookeeper";
 
-    <p># Hadoop Service - ZOOKEEPER
-  # Directory where ZooKeeper will store data
-  ZOOKEEPER_DATA_DIR=”/grid/hadoop/zookeeper/data”;</p>
+  SQOOP_CONF_DIR="/etc/sqoop/conf";
 
-    <p># Directory to store the ZooKeeper configuration files.
-  ZOOKEEPER_CONF_DIR=”/etc/zookeeper/conf”;</p>
+  export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
+</code></pre>
+    </div>
 
-    <p># Directory to store the ZooKeeper logs.
-  ZOOKEEPER_LOG_DIR=”/var/log/zookeeper”;</p>
+    <p>Save the file and source it.</p>
 
-    <p># Directory to store the ZooKeeper process ID.
-  ZOOKEEPER_PID_DIR=”/var/run/zookeeper”;</p>
-
-    <p>export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec</p>
+    <p><b>source directories.sh</b></p>
   </li>
   <li>
-    <h1 id="chmod-x-hadoopvariablessh">chmod +x hadoopVariables.sh</h1>
-    <p># source hadoopVariables.sh</p>
+    <p><b>vim ~/hadoopVariables.sh</b></p>
+
+    <p>#Add the following</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code> !/bin/sh
+
+ #Hadoop Users and Groups
+ #User which will own the HDFS services.
+ HDFS_USER=hdfs ;
+
+ #User which will own the YARN services.
+ YARN_USER=yarn ;
+
+ #User which will own the MapReduce services.
+ MAPRED_USER=mapred ;
+
+ #set owning the ZooKeeper services.
+ ZOOKEEPER_USER=zookeeper ;
+
+ #A common group shared by services.
+ HADOOP_GROUP=hadoop ;
+
+ #Hadoop Service - HDFS
+ #Space separated list of directories where NameNode will store file system image. For example, /grid/hadoop/hdfs/nn /grid1/hadoop/hdfs/nn
+
+ DFS_NAME_DIR="/grid/hadoop/hdfs/nn";
+
+ #Space separated list of directories where DataNodes will store the blocks. For example, /grid/hadoop/hdfs/dn /grid1/hadoop/hdfs/dn /grid2/hadoop/hdfs/dn
+
+ DFS_DATA_DIR="/grid/hadoop/hdfs/dn";
+
+ #Space separated list of directories where SecondaryNameNode will store checkpoint image. For example, /grid/hadoop/hdfs/snn /grid1/hadoop/hdfs/snn /grid2/hadoop/hdfs/snn
+
+ FS_CHECKPOINT_DIR="/grid/hadoop/hdfs/snn";
+
+ #Directory to store the HDFS logs.
+ HDFS_LOG_DIR="/var/log/hadoop/hdfs";
+
+ #Directory to store the HDFS process ID.
+ HDFS_PID_DIR="/var/run/hadoop/hdfs";
+
+ #Directory to store the Hadoop configuration files.
+ HADOOP_CONF_DIR="/etc/hadoop/conf";
+
+ #Hadoop Service - YARN 
+ #Space separated list of directories where YARN will store temporary data. For example, /grid/hadoop/yarn/local /grid1/hadoop/yarn/local /grid2/hadoop/yarn/local
+
+ YARN_LOCAL_DIR="/grid/hadoop/yarn/local";
+
+ #Directory to store the YARN logs.
+ YARN_LOG_DIR="/var/log/hadoop/yarn"; 
+
+ #Space separated list of directories where YARN will store container log data. For example, /grid/hadoop/yarn/logs /grid1/hadoop/yarn/logs /grid2/hadoop/yarn/logs
+
+ YARN_LOCAL_LOG_DIR="/grid/hadoop/yarn/logs";
+
+ #Directory to store the YARN process ID.
+ YARN_PID_DIR="/var/run/hadoop/yarn";
+
+ #Hadoop Service - MAPREDUCE
+ #Directory to store the MapReduce daemon logs.
+ MAPRED_LOG_DIR="/var/log/hadoop/mapred";
+
+ #Directory to store the mapreduce jobhistory process ID.
+ MAPRED_PID_DIR="/var/run/hadoop/mapred";
+
+ #Hadoop Service - ZOOKEEPER
+ #Directory where ZooKeeper will store data
+ ZOOKEEPER_DATA_DIR="/grid/hadoop/zookeeper/data";
+
+ #Directory to store the ZooKeeper configuration files.
+ ZOOKEEPER_CONF_DIR="/etc/zookeeper/conf";
+
+ #Directory to store the ZooKeeper logs.
+ ZOOKEEPER_LOG_DIR="/var/log/zookeeper";
+
+ #Directory to store the ZooKeeper process ID.
+ ZOOKEEPER_PID_DIR="/var/run/zookeeper";
+
+ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
+</code></pre>
+    </div>
   </li>
   <li>
-    <h1 id="python-yarn-utilspy--c-6--m-128--d-1--k-false">python yarn-utils.py -c 6 -m 128 -d 1 -k False</h1>
+    <p><b>chmod +x hadoopVariables.sh</b></p>
+
+    <p><code class="highlighter-rouge">
+   source hadoopVariables.sh
+  </code></p>
+  </li>
+  <li>
+    <p><code class="highlighter-rouge">
+  python yarn-utils.py -c 6 -m 128 -d 1 -k False
+ </code></p>
+
     <p>Replace 6 by no.of cores, 128 by no. of gigabytes of RAM and 1 by no. of disks.Save the ouput for use in step 42 (yarn-site.xml)</p>
   </li>
   <li>
-    <h1 id="umask">umask</h1>
-    <p>0022</p>
+    <p><b>umask</b>
+  0022</p>
   </li>
   <li>
-    <h1 id="sudo-apt-get-install-openssh-server">sudo apt-get install openssh-server</h1>
+    <p><code class="highlighter-rouge">
+  sudo apt-get install openssh-server
+ </code></p>
   </li>
   <li>
-    <p>Install hadoop core services:
-  # sudo apt-get install hadoop hadoop-hdfs libhdfs0 libhdfs0-dev hadoop-yarn hadoop-mapreduce hadoop-client openssl</p>
+    <p>Install hadoop core services:</p>
+
+    <p><code class="highlighter-rouge">
+   sudo apt-get install hadoop hadoop-hdfs libhdfs0 libhdfs0-dev hadoop-yarn hadoop-mapreduce hadoop-client openssl
+  </code></p>
   </li>
   <li>
-    <p>Install compression libraries
-  # apt-get install libsnappy1 libsnappy-dev
-  # ln -sf /usr/lib64/libsnappy.so /usr/lib/hadoop/lib/native/.
-  # apt-get install liblzo2-2 liblzo2-dev hadoop-lzo</p>
+    <p>Install compression libraries</p>
+
+    <p><code class="highlighter-rouge">
+  apt-get install libsnappy1 libsnappy-dev
+ </code></p>
+
+    <p><code class="highlighter-rouge">
+  ln -sf /usr/lib64/libsnappy.so /usr/lib/hadoop/lib/native/.
+ </code></p>
+
+    <p><code class="highlighter-rouge">
+  apt-get install liblzo2-2 liblzo2-dev hadoop-lzo
+ </code></p>
   </li>
   <li>
-    <p>Create the NameNode Directories (ONLY on NameNode):
-  mkdir -p $DFS_NAME_DIR;
+    <p>Create the NameNode Directories (ONLY on NameNode):</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $DFS_NAME_DIR;
   chown -R $HDFS_USER:$HADOOP_GROUP $DFS_NAME_DIR;
-  chmod -R 755 $DFS_NAME_DIR;</p>
+  chmod -R 755 $DFS_NAME_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>Create the Secondary NameNode Directories (ONLY on SecondaryNameNode):
-  mkdir -p $FS_CHECKPOINT_DIR;
+    <p>Create the Secondary NameNode Directories (ONLY on SecondaryNameNode):</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $FS_CHECKPOINT_DIR;
   chown -R $HDFS_USER:$HADOOP_GROUP $FS_CHECKPOINT_DIR;
-  chmod -R 755 $FS_CHECKPOINT_DIR;</p>
+  chmod -R 755 $FS_CHECKPOINT_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>ONLY on all the datanodes :
-  mkdir -p $DFS_DATA_DIR;
+    <p>ONLY on all the datanodes :</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $DFS_DATA_DIR;
   chown -R $HDFS_USER:$HADOOP_GROUP $DFS_DATA_DIR;
-  chmod -R 750 $DFS_DATA_DIR;</p>
+  chmod -R 750 $DFS_DATA_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>Need to check about Zookeeper node:
-  mkdir -p $ZOOKEEPER_LOG_DIR;
+    <p>Need to check about Zookeeper node:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $ZOOKEEPER_LOG_DIR;
   chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_LOG_DIR;
-  chmod -R 755 $ZOOKEEPER_LOG_DIR;</p>
-
-    <p>mkdir -p $ZOOKEEPER_PID_DIR;
+  chmod -R 755 $ZOOKEEPER_LOG_DIR;
+  mkdir -p $ZOOKEEPER_PID_DIR;
   chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_PID_DIR;
-  chmod -R 755 $ZOOKEEPER_PID_DIR;</p>
-
-    <p>mkdir -p $ZOOKEEPER_DATA_DIR;
+  chmod -R 755 $ZOOKEEPER_PID_DIR;
+  mkdir -p $ZOOKEEPER_DATA_DIR;
   chmod -R 755 $ZOOKEEPER_DATA_DIR;
-  chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_DATA_DIR;</p>
+  chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_DATA_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>ONLY on ResourceManager and all datanodes :
-  mkdir -p $YARN_LOCAL_DIR;
+    <p>ONLY on ResourceManager and all datanodes :</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $YARN_LOCAL_DIR;
   chown -R $YARN_USER:$HADOOP_GROUP $YARN_LOCAL_DIR;
-  chmod -R 755 $YARN_LOCAL_DIR;</p>
-
-    <p>mkdir -p $YARN_LOCAL_LOG_DIR;
+  chmod -R 755 $YARN_LOCAL_DIR;
+  mkdir -p $YARN_LOCAL_LOG_DIR;
   chown -R $YARN_USER:$HADOOP_GROUP $YARN_LOCAL_LOG_DIR;
-  chmod -R 755 $YARN_LOCAL_LOG_DIR;</p>
+  chmod -R 755 $YARN_LOCAL_LOG_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>On all nodes:
-  mkdir -p $HDFS_LOG_DIR;		
+    <p>On all nodes:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  mkdir -p $HDFS_LOG_DIR;
   chown -R $HDFS_USER:$HADOOP_GROUP $HDFS_LOG_DIR;
-  chmod -R 755 $HDFS_LOG_DIR;</p>
-
-    <p>mkdir -p $YARN_LOG_DIR;
+  chmod -R 755 $HDFS_LOG_DIR;
+  mkdir -p $YARN_LOG_DIR;
   chown -R $YARN_USER:$HADOOP_GROUP $YARN_LOG_DIR;
-  chmod -R 755 $YARN_LOG_DIR;</p>
-
-    <p>mkdir -p $HDFS_PID_DIR;
+  chmod -R 755 $YARN_LOG_DIR;
+  mkdir -p $HDFS_PID_DIR;
   chown -R $HDFS_USER:$HADOOP_GROUP $HDFS_PID_DIR;
-  chmod -R 755 $HDFS_PID_DIR;</p>
-
-    <p>mkdir -p $YARN_PID_DIR;
+  chmod -R 755 $HDFS_PID_DIR;
+  mkdir -p $YARN_PID_DIR;
   chown -R $YARN_USER:$HADOOP_GROUP $YARN_PID_DIR;
-  chmod -R 755 $YARN_PID_DIR;</p>
-
-    <p>mkdir -p $MAPRED_LOG_DIR;
+  chmod -R 755 $YARN_PID_DIR;
+  mkdir -p $MAPRED_LOG_DIR;
   chown -R $MAPRED_USER:$HADOOP_GROUP $MAPRED_LOG_DIR;
-  chmod -R 755 $MAPRED_LOG_DIR;</p>
-
-    <p>mkdir -p $MAPRED_PID_DIR;
+  chmod -R 755 $MAPRED_LOG_DIR;
+  mkdir -p $MAPRED_PID_DIR;
   chown -R $MAPRED_USER:$HADOOP_GROUP $MAPRED_PID_DIR;
-  chmod -R 755 $MAPRED_PID_DIR;</p>
+  chmod -R 755 $MAPRED_PID_DIR;
+</code></pre>
+    </div>
   </li>
   <li>
-    <h1 id="cd-tmphadoophdpmanualinstallrpmhelperfiles-206101configurationfilescorehadoop">cd /tmp/hadoop/hdp_manual_install_rpm_helper_files-2.0.6.101/configuration_files/core_hadoop</h1>
-    <p># vim core-site.xml
-      Make the following change:
- 	<property>
-  	<name>fs.defaultFS</name>
- 	<value>hdfs://static.136.xx.xxx.148.clients.your-server.de:8020</value>
- 	</property></p>
+    <p><b>cd /tmp/hadoop/hdp_manual_install_rpm_helper_files-2.0.6.101/configuration_files/core_hadoop</b></p>
   </li>
   <li>
-    <h1 id="vim-hdfs-sitexml">vim hdfs-site.xml</h1>
-    <p>Make the following changes:</p>
-    <property>
-  	<name>dfs.datanode.data.dir</name>
-  	<value>file:///grid/hadoop/hdfs/dn</value>
-  </property>
-    <property>
- 		<name>dfs.namenode.http-address</name>
-  	<value>static.136.xx.xxx.148.clients.your-server.de:50070</value>
-  </property>
-    <property>
-  	<name>dfs.namenode.name.dir</name>
-  	<value>file:///grid/hadoop/hdfs/nn</value>
-  </property>
-    <property>
-  	<name>dfs.namenode.checkpoint.dir</name>
-  	<value>/grid/hadoop/hdfs/snn</value>
-  </property>
-    <property>
-  	<name>dfs.namenode.secondary.http-address</name>
-  	<value>static.136.xx.xxx.148.clients.your-server.de:50090</value>
-  </property>
+    <p><b>vim core-site.xml</b></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  &lt;!--Make the following change--&gt;
+ 	&lt;property&gt;
+  	&lt;name&gt;fs.defaultFS&lt;/name&gt;
+ 	&lt;value&gt;hdfs://static.xxx.xxx.xx.xxx.clients.your-server.de:8020&lt;/value&gt;
+ 	&lt;/property&gt;
+</code></pre>
+    </div>
   </li>
   <li>
-    <h1 id="vim-yarn-sitexml">vim yarn-site.xml</h1>
-    <p>Make the following changes:</p>
-    <property>
-  	<name>yarn.nodemanager.local-dirs</name>
-  	<value>/grid/hadoop/yarn/local</value>
-	</property>
-    <property>
-  	<name>yarn.log.server.url</name>
-  	<value>http://static.135.xx.xxx.148.clients.your-server.de:19888/jobhistory/logs</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.admin.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:8141</value>
-	</property>
-    <property>
-  	<name>yarn.scheduler.maximum-allocation-mb</name>
-  	<value>105984</value>
-	</property>
-    <property>
-  	<name>yarn.nodemanager.resource.memory-mb</name>
-  	<value>105984</value>
-	</property>
-    <property>
-  	<name>yarn.nodemanager.log-dirs</name>
-  	<value>/grid/hadoop/yarn/logs</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.scheduler.class</name>
-  	<value>org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.resource-tracker.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:8025</value>
-	</property>
-    <property>
-  	<name>yarn.scheduler.minimum-allocation-mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.webapp.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:8088</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:8050</value>
-	</property>
-    <property>
-  	<name>yarn.resourcemanager.scheduler.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:8030</value>
-	</property>
+    <p><b>vim hdfs-site.xml</b></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  &lt;!--Make the following changes--&gt;
+  &lt;property&gt;
+  	&lt;name&gt;dfs.datanode.data.dir&lt;/name&gt;
+  	&lt;value&gt;file:///grid/hadoop/hdfs/dn&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+ 	&lt;name&gt;dfs.namenode.http-address&lt;/name&gt;
+  	&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:50070&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+  	&lt;name&gt;dfs.namenode.name.dir&lt;/name&gt;
+  	&lt;value&gt;file:///grid/hadoop/hdfs/nn&lt;/value&gt;
+  &lt;/property&gt;
+  &lt;property&gt;
+  	&lt;name&gt;dfs.namenode.checkpoint.dir&lt;/name&gt;
+  	&lt;value&gt;/grid/hadoop/hdfs/snn&lt;/value&gt;
+  	&lt;/property&gt;
+  &lt;property&gt;
+  	&lt;name&gt;dfs.namenode.secondary.http-address&lt;/name&gt;
+  	&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:50090&lt;/value&gt;
+  &lt;/property&gt;
+</code></pre>
+    </div>
   </li>
   <li>
-    <h1 id="vim-mapred-sitexml">vim mapred-site.xml</h1>
-    <p>Make the following changes:</p>
-    <property>
-  	<name>mapreduce.jobhistory.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:10020</value>
-	</property>
-    <property>
-  	<name>mapreduce.cluster.reduce.memory.mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>mapred.child.java.opts</name>
-  	<value>-Xmx28262m</value>
-	</property>
-    <property>
-  	<name>mapred.cluster.max.reduce.memory.mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>mapred.cluster.max.map.memory.mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>mapreduce.jobhistory.webapp.address</name>
-  	<value>static.135.xx.xxx.148.clients.your-server.de:19888</value>
-	</property>
-    <property>
-  	<name>mapreduce.map.memory.mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>mapreduce.task.io.sort.mb</name> 
-  	<!--Please keep this as 1024 -->
-  	<value>1024</value>
-	</property>
-    <property>
-  	<name>mapred.cluster.map.memory.mb</name>
-  	<value>35328</value>
-	</property>
-    <property>
-  	<name>mapreduce.reduce.memory.mb</name>
-  	<value>35328</value>
-	</property>
+    <p><b>vim yarn-site.xml</b></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  &lt;!--Make the following changes--&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.nodemanager.local-dirs&lt;/name&gt;
+  		&lt;value&gt;/grid/hadoop/yarn/local&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.log.server.url&lt;/name&gt;
+  		&lt;value&gt;http://static.xxx.xxx.xx.xxx.clients.your-server.de:19888/jobhistory/logs&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.admin.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:8141&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.scheduler.maximum-allocation-mb&lt;/name&gt;
+  		&lt;value&gt;105984&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.nodemanager.resource.memory-mb&lt;/name&gt;
+  		&lt;value&gt;105984&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.nodemanager.log-dirs&lt;/name&gt;
+  		&lt;value&gt;/grid/hadoop/yarn/logs&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.scheduler.class&lt;/name&gt;
+  		&lt;value&gt;org.apache.hadoop.yarn.server.resourcemanager.scheduler.capacity.CapacityScheduler&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.resource-tracker.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:8025&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.scheduler.minimum-allocation-mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.webapp.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:8088&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:8050&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;yarn.resourcemanager.scheduler.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xxx.xx.xxx.clients.your-server.de:8030&lt;/value&gt;
+	&lt;/property&gt;
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>Copy the configuration files to /etc/hadoop/conf/</p>
+    <p><b>vim mapred-site.xml</b></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  &lt;!--Make the following changes--&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.jobhistory.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xx.xxx.xxx.clients.your-server.de:10020&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.cluster.reduce.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapred.child.java.opts&lt;/name&gt;
+  		&lt;value&gt;-Xmx28262m&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapred.cluster.max.reduce.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapred.cluster.max.map.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.jobhistory.webapp.address&lt;/name&gt;
+  		&lt;value&gt;static.xxx.xx.xxx.xxx.clients.your-server.de:19888&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.map.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.task.io.sort.mb&lt;/name&gt; 
+  		&lt;!--Please keep this as 1024 --&gt;
+  		&lt;value&gt;1024&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapred.cluster.map.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+  	&lt;property&gt;
+  		&lt;name&gt;mapreduce.reduce.memory.mb&lt;/name&gt;
+  		&lt;value&gt;35328&lt;/value&gt;
+	&lt;/property&gt;
+</code></pre>
+    </div>
   </li>
   <li>
-    <h1 id="vim-etchadoopconfhadoop-envsh">vim /etc/hadoop/conf/hadoop-env.sh</h1>
+    <p>Copy the configuration files to <b>/etc/hadoop/conf/</b></p>
+  </li>
+  <li>
+    <p><b>vim /etc/hadoop/conf/hadoop-env.sh</b></p>
+
     <p>Comment the line containing export JAVA_HOME</p>
   </li>
   <li>
-    <h1 id="vim-etcrclocal">vim /etc/rc.local</h1>
-    <p>Add the following lines (after the first block of comments):
+    <p><b>vim /etc/rc.local</b></p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>  Add the following lines (after the first block of comments):
   mkdir /var/run/hadoop
   chown -R hdfs:hadoop /var/run/hadoop
-  chmod -R 755 /var/run/hadoop</p>
+  chmod -R 755 /var/run/hadoop
 
-    <p>mkdir /var/run/hadoop-yarn
+  mkdir /var/run/hadoop-yarn
   chown -R yarn:hadoop /var/run/hadoop-yarn
-  chmod -R 755 /var/run/hadoop-yarn</p>
+  chmod -R 755 /var/run/hadoop-yarn
 
-    <p>mkdir /var/run/hadoop-mapreduce
+  mkdir /var/run/hadoop-mapreduce
   chown -R mapred:hadoop /var/run/hadoop-mapreduce
-  chmod -R 755 /var/run/hadoop-mapreduce</p>
+  chmod -R 755 /var/run/hadoop-mapreduce
 
-    <p>mkdir /var/run/hbase
+  mkdir /var/run/hbase
   chown -R hbase:hadoop /var/run/hbase
-  chmod -R 755 /var/run/hbase</p>
+  chmod -R 755 /var/run/hbase
+</code></pre>
+    </div>
 
-    <p>(Need to use distributed cache) Copy all the lib jars from /home/rq/rocq/sparq_backend/lib to /usr/lib/hadoop-mapreduce/
-  ** add /usr/lib/rocq folder &amp; /usr/lib/hadoop-mapreduce/ folder jars while adding new datanodes or any other node to the cluster</p>
+    <p>(Need to use distributed cache) Copy all the lib jars from <b>/home/rq/rocq/sparq_backend/lib</b> to <b>/usr/lib/hadoop-mapreduce/</b>
+  ** add <b>/usr/lib/rocq</b> folder &amp; <b>/usr/lib/hadoop-mapreduce/</b> folder jars while adding new datanodes or any other node to the cluster</p>
   </li>
   <li>
-    <p>ONLY on the namenode, format and start the namenode
-  # su $HDFS_USER
-  # hdfs namenode -format</p>
+    <p>ONLY on the namenode, format and start the namenode</p>
 
-    <p># /usr/lib/hadoop/sbin/hadoop-daemon.sh –config /etc/hadoop/conf start namenode</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $HDFS_USER
+hdfs namenode -format
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">
+   /usr/lib/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop/conf start namenode
+ </code></p>
 
     <p>If the above commands execute properly, then the namenode setup is working.
   When namenode is running, see : http://static.136.xx.xxx.148.clients.your-server.de:50070/</p>
   </li>
   <li>
-    <p>Execute these commands on the SecondaryNameNode:
-  # su $HDFS_USER
-  # /usr/lib/hadoop/sbin/hadoop-daemon.sh –config /etc/hadoop/conf start secondarynamenode</p>
-  </li>
-  <li>
-    <p>Execute these commands on all DataNodes:
-  # su $HDFS_USER
-  # /usr/lib/hadoop/sbin/hadoop-daemon.sh –config /etc/hadoop/conf start datanode</p>
-  </li>
-  <li>
-    <p>Create hdfs user directory in HDFS:
-  # su $HDFS_USER
-  # hadoop fs -mkdir -p /user/hdfs</p>
+    <p>Execute these commands on the SecondaryNameNode:</p>
 
-    <p>Try copying a file into HDFS and listing that file:
-  # su $HDFS_USER
-  # hadoop fs -copyFromLocal /etc/passwd passwd
-  # hadoop fs -ls 
-  If  you see the file listed, then it has been created properly.</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $HDFS_USER
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">
+   /usr/lib/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop/conf start secondarynamenode
+  </code></p>
+  </li>
+  <li>
+    <p>Execute these commands on all DataNodes:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $HDFS_USER
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">
+   /usr/lib/hadoop/sbin/hadoop-daemon.sh --config /etc/hadoop/conf start datanode
+  </code></p>
+  </li>
+  <li>
+    <p>Create hdfs user directory in HDFS:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $HDFS_USER
+hadoop fs -mkdir -p /user/hdfs
+</code></pre>
+    </div>
+
+    <p>Try copying a file into HDFS and listing that file:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $HDFS_USER
+hadoop fs -copyFromLocal /etc/passwd passwd
+hadoop fs -ls 
+</code></pre>
+    </div>
+
+    <p>If  you see the file listed, then it has been created properly.</p>
   </li>
   <li>
     <p>Start YARN
-  Execute these commands from the ResourceManager server:
-  # su $YARN_USER
-  # export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
-  # /usr/lib/hadoop-yarn/sbin/yarn-daemon.sh –config /etc/hadoop/conf start resourcemanager</p>
+  Execute these commands from the ResourceManager server:</p>
 
-    <p>Execute these commands from all NodeManager nodes:
-  # su $YARN_USER
-  # export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
-  # /usr/lib/hadoop-yarn/sbin/yarn-daemon.sh –config /etc/hadoop/conf start nodemanager</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $YARN_USER
+export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">
+  /usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config /etc/hadoop/conf start resourcemanager
+ </code></p>
+
+    <p>Execute these commands from all NodeManager nodes:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>su $YARN_USER
+export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
+</code></pre>
+    </div>
+
+    <p><code class="highlighter-rouge">
+   /usr/lib/hadoop-yarn/sbin/yarn-daemon.sh --config /etc/hadoop/conf start nodemanager
+  </code></p>
   </li>
   <li>
     <p>Start MapReduce JobHistory Server (on the namenode):
-  We need to do this step on data-nodes before starting node manager, else it shows error on health check and shows unhealthy nodes.
-  # chown -R root:hadoop /usr/lib/hadoop-yarn/bin/container-executor
-  # chmod -R 6050 /usr/lib/hadoop-yarn/bin/container-executor</p>
+  We need to do this step on data-nodes before starting node manager, else it shows error on health check and shows unhealthy nodes.</p>
 
-    <p># su hdfs
-  $ hadoop fs -mkdir -p /mr-history/tmp
-  $ hadoop fs -chmod -R 1777 /mr-history/tmp
-  $ hadoop fs -mkdir -p /mr-history/done
-  $ hadoop fs -chmod -R 1777 /mr-history/done
-  $ hadoop fs -chown -R mapred:hdfs /mr-history</p>
+    <div class="highlighter-rouge"><pre class="highlight"><code>chown -R root:hadoop /usr/lib/hadoop-yarn/bin/container-executor
+chmod -R 6050 /usr/lib/hadoop-yarn/bin/container-executor
+	
+$ su hdfs
+$ hadoop fs -mkdir -p /mr-history/tmp
+$ hadoop fs -chmod -R 1777 /mr-history/tmp
+$ hadoop fs -mkdir -p /mr-history/done
+$ hadoop fs -chmod -R 1777 /mr-history/done
+$ hadoop fs -chown -R mapred:hdfs /mr-history
+$ hadoop fs -mkdir -p /app-logs
+$ hadoop fs -chmod -R 1777 /app-logs 
+$ hadoop fs -chown yarn /app-logs
+$ exit
 
-    <p>$ hadoop fs -mkdir -p /app-logs
-  $ hadoop fs -chmod -R 1777 /app-logs 
-  $ hadoop fs -chown yarn /app-logs
-  $ exit</p>
 
-    <p># su mapred
-  $ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec/ 
-  $ /usr/lib/hadoop-mapreduce/sbin/mr-jobhistory-daemon.sh –config /etc/hadoop/conf start historyserver</p>
+$ su mapred
+$ export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec/ 
+$ /usr/lib/hadoop-mapreduce/sbin/mr-jobhistory-daemon.sh --config /etc/hadoop/conf start historyserver
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>Browse the Recource Manager :
-  http://static.136.xx.xxx.148.clients.your-server.de:8088/</p>
+    <p>Browse the Recource Manager :</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>http://static.136.xx.xxx.148.clients.your-server.de:8088/
+</code></pre>
+    </div>
   </li>
   <li>
-    <p>Start a sample MapReduce Job:
-  # su hdfs
-  $ /usr/lib/hadoop/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-101.jar teragen 10000 /tmp/teragenout 
-  $ /usr/lib/hadoop/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar terasort /tmp/teragenout /tmp/terasortout</p>
+    <p>Start a sample MapReduce Job:</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>su hdfs
+$ /usr/lib/hadoop/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-101.jar teragen 10000 /tmp/teragenout 
+$ /usr/lib/hadoop/bin/hadoop jar /usr/lib/hadoop-mapreduce/hadoop-mapreduce-examples-2.2.0.2.0.6.0-76.jar terasort /tmp/teragenout /tmp/terasortout
+</code></pre>
+    </div>
   </li>
   <li>
     <p>If there are no errors, then the setup is working!</p>
   </li>
-  <li>For stopping follow this order
-  Job History Server
-  NodeManager
-  ResourceManager
-  DataNodes
-  SecondaryNameNode
-  NameNode</li>
+  <li>
+    <p>For stopping follow this order</p>
+
+    <div class="highlighter-rouge"><pre class="highlight"><code>Job History Server
+NodeManager
+ResourceManager
+DataNodes
+SecondaryNameNode
+NameNode
+</code></pre>
+    </div>
+  </li>
 </ul>
 
 </article>

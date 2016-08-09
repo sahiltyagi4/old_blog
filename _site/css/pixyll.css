@@ -129,7 +129,7 @@ p,
 dl,
 ol,
 ul {
-  font-size: 1rem;
+  font-size: 0.7rem;
   margin-top: 0;
   margin-bottom: 1rem; }
 
@@ -161,24 +161,24 @@ blockquote {
 
 blockquote,
 blockquote p {
-  font-size: 1.25rem;
+  font-size: 0.998rem;
   font-style: italic; }
 
 h1,
 .h1 {
-  font-size: 2.998rem; }
+  font-size: 0.998rem; }
 
 h2,
 .h2 {
-  font-size: 1.5rem; }
+  font-size: 0.998rem; }
 
 h3,
 .h3 {
-  font-size: 1.25rem; }
+  font-size: 0.998rem; }
 
 h4,
 .h4 {
-  font-size: 1rem; }
+  font-size: 0.7rem; }
 
 h5,
 .h5 {
@@ -862,12 +862,12 @@ sup {
 
 .site-header a {
   color: #333;
-  font-size: 1.25rem;
+  font-size: 0.998rem;
   font-weight: 300;
   background-image: none; }
 
 .site-header .site-title {
-  font-size: 1.5rem; }
+  font-size: 0.998rem; }
 
 .site-nav {
   margin-top: 1rem; }
@@ -1080,7 +1080,7 @@ blockquote footer {
 
   h1,
   .h1 {
-    font-size: 2.998rem; }
+    font-size: 0.998rem; }
 
   .site-header {
     text-align: left; }
@@ -1089,10 +1089,10 @@ blockquote footer {
     margin-top: 0; }
 
   .site-header a {
-    font-size: 1rem; }
+    font-size: 0.7rem; }
 
   .site-header .site-title {
-    font-size: 1.25rem;
+    font-size: 0.998rem;
     float: left; }
 
   .site-header .site-nav {
