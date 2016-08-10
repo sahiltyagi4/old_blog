@@ -1,12 +1,14 @@
 ---
 layout:     post
 title:      Hadoop and HDFS setup
-date:       2016-07-09 11:21:29
+date:       2016-01-15 11:21:29
 summary:    This post describes how to setup Hadoop 2.2.3 (Hortonworks release) on an Ubuntu (Linux) server. 
 categories: hadoop hdfs
 ---
 
-Hadoop, formally called Apache Hadoop, is an Apache Software Foundation project and open source software platform for scalable, distributed computing.
+Hadoop, formally called Apache Hadoop, is an Apache Software Foundation project and open source software platform for scalable, distributed computing. It provides massive storage for any kind of data, enormous processing power and the ability to handle virtually limitless concurrent tasks or jobs. 
+Hadoop is designed to run on a large number of machines that don’t share any memory or disks. That means you can buy a whole bunch of commodity servers, slap them in a rack, and run the Hadoop software on each one. When you want to load all of your organization’s data into Hadoop, what the software does is bust that data into pieces that it then spreads across your different servers. There’s no one place where you go to talk to all of your data; Hadoop keeps track of where the data resides. And because there are multiple copy stores, data stored on a server that goes offline or dies can be automatically replicated from a known good copy. Hadoop is ideal for situations where you want to run analytics that are deep and computationally extensive, like clustering and targeting. It applies to a myriad of markets like finance, online retail, etc.
+Hadoop 2.x comes with YARN (Yet Another Resource Negotiator) for cluster resource management.
 Following are the installation steps:
 
 - Check the ip of the server by running the command:
@@ -17,7 +19,7 @@ Following are the installation steps:
 
 	Let's say the ip looks somewhat like xxx.xxx.xx.xxx
 
-- Check the hostname provided by Hetzner by running nslookup on the remote machine:
+- Check the hostname provided to the server by running nslookup on the remote machine:
 
 	```
 	$ nslookup xxx.xxx.xx.xxx
@@ -38,7 +40,7 @@ You should see something like the following after entering credentials:
 	 vim /etc/hostname
 	 ```
 
-- Change all instances of the current  hostname (Ubuntu-1204-precise-64-minimal) to the Hostname provided by Hetzner and save the file.
+- Change all instances of the current  hostname (Ubuntu-1204-precise-64-minimal) to the Hostname provided and save the file.
 	If everything goes well, you should see an entry in /etc/hosts like the one shown below.
 	xxx.xxx.xx.xxx 	static.xxx.xxx.xx.xxx.clients.your-server.de
 
@@ -93,7 +95,7 @@ You should see something like the following after entering credentials:
 - Check the name of the extracted folder (marked in bold, this may differ for you, and you need to use that particular name in the steps that follow):
 	
 	```
-	root@rq-namenode /usr/local/java  ls -a
+	root@hadoop-namenode /usr/local/java  ls -a
 		.  ..  jdk1.7.0_51  jdk-7u51-linux-x64.tar.gz
 	```	
 
@@ -117,55 +119,55 @@ You should see something like the following after entering credentials:
 - Inform the system where your Oracle Java JDK is located. This will tell the system that the new Oracle Java version is available for use.
 
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk1.7.0_79/bin/java" 1
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/java" "java" "/usr/local/java/jdk1.7.0_79/bin/java" 1
 	```
 
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk1.7.0_51/bin/javac" 1
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javac" "javac" "/usr/local/java/jdk1.7.0_51/bin/javac" 1
 	```
 
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/local/java/jdk1.7.0_51/bin/javaws" 1
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --install "/usr/bin/javaws" "javaws" "/usr/local/java/jdk1.7.0_51/bin/javaws" 1
 	```
 
 - Inform the system that Oracle Java JDK must be the default Java.
 	
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --set java /usr/local/java/jdk1.7.0_79/bin/java
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --set java /usr/local/java/jdk1.7.0_79/bin/java
 	```
 
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --set javac /usr/local/java/jdk1.7.0_51/bin/javac
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --set javac /usr/local/java/jdk1.7.0_51/bin/javac
 	```
 
 	```
-	root@rq-namenode /usr/local/java  sudo update-alternatives --set javaws /usr/local/java/jdk1.7.0_51/bin/javaws
+	root@hadoop-namenode /usr/local/java  sudo update-alternatives --set javaws /usr/local/java/jdk1.7.0_51/bin/javaws
 	```
 
 - Reload your system wide PATH <b>/etc/profile</b> :
 
 	```
-	root@rq-namenode /usr/local/java  . /etc/profile
+	root@hadoop-namenode /usr/local/java  . /etc/profile
 	```
 
 - Check that java was installed correctly:
 
 	```
-	root@rq-namenode ~  java -version
+	root@hadoop-namenode ~  java -version
 		java version "1.7.0_51"
 		Java(TM) SE Runtime Environment (build 1.7.0_51-b13)
 		Java HotSpot(TM) 64-Bit Server VM (build 24.51-b03, mixed mode)
 	```
 
 	```
-	root@rq-namenode ~  javac -version
+	root@hadoop-namenode ~  javac -version
 		javac 1.7.0_51
 	```
 
 - Install NTP (if not already installed):
 	
 	```
-	root@rq-namenode ~  apt-get install ntp
+	root@hadoop-namenode ~  apt-get install ntp
 	```
 
 - <b>sudo /etc/init.d/ntp reload</b>
@@ -262,16 +264,6 @@ You should see something like the following after entering credentials:
 
 		MAPRED_PID_DIR="/var/run/hadoop/mapred";
 
-		ZOOKEEPER_DATA_DIR="/grid/hadoop/zookeeper/data";
-
-		ZOOKEEPER_CONF_DIR="/etc/zookeeper/conf";
-
-		ZOOKEEPER_LOG_DIR="/var/log/zookeeper";
-
-		ZOOKEEPER_PID_DIR="/var/run/zookeeper";
-
-		SQOOP_CONF_DIR="/etc/sqoop/conf";
-
 		export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
 
 	Save the file and source it.
@@ -293,9 +285,6 @@ You should see something like the following after entering credentials:
 
 		#User which will own the MapReduce services.
 		MAPRED_USER=mapred ;
-
-		#set owning the ZooKeeper services.
-		ZOOKEEPER_USER=zookeeper ;
 
 		#A common group shared by services.
 		HADOOP_GROUP=hadoop ;
@@ -343,19 +332,6 @@ You should see something like the following after entering credentials:
 
 		#Directory to store the mapreduce jobhistory process ID.
 		MAPRED_PID_DIR="/var/run/hadoop/mapred";
-
-		#Hadoop Service - ZOOKEEPER
-		#Directory where ZooKeeper will store data
-		ZOOKEEPER_DATA_DIR="/grid/hadoop/zookeeper/data";
-
-		#Directory to store the ZooKeeper configuration files.
-		ZOOKEEPER_CONF_DIR="/etc/zookeeper/conf";
-
-		#Directory to store the ZooKeeper logs.
-		ZOOKEEPER_LOG_DIR="/var/log/zookeeper";
-	
-		#Directory to store the ZooKeeper process ID.
-		ZOOKEEPER_PID_DIR="/var/run/zookeeper";
 	
 		export HADOOP_LIBEXEC_DIR=/usr/lib/hadoop/libexec
 
@@ -415,18 +391,6 @@ You should see something like the following after entering credentials:
 		mkdir -p $DFS_DATA_DIR;
 		chown -R $HDFS_USER:$HADOOP_GROUP $DFS_DATA_DIR;
 		chmod -R 750 $DFS_DATA_DIR;
-
-- Need to check about Zookeeper node:
-	
-		mkdir -p $ZOOKEEPER_LOG_DIR;
-		chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_LOG_DIR;
-		chmod -R 755 $ZOOKEEPER_LOG_DIR;
-		mkdir -p $ZOOKEEPER_PID_DIR;
-		chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_PID_DIR;
-		chmod -R 755 $ZOOKEEPER_PID_DIR;
-		mkdir -p $ZOOKEEPER_DATA_DIR;
-		chmod -R 755 $ZOOKEEPER_DATA_DIR;
-		chown -R $ZOOKEEPER_USER:$HADOOP_GROUP $ZOOKEEPER_DATA_DIR;
 
 - ONLY on ResourceManager and all datanodes :
 
@@ -610,11 +574,8 @@ You should see something like the following after entering credentials:
 		chown -R mapred:hadoop /var/run/hadoop-mapreduce
 		chmod -R 755 /var/run/hadoop-mapreduce
 
-		mkdir /var/run/hbase
-		chown -R hbase:hadoop /var/run/hbase
-		chmod -R 755 /var/run/hbase
 
-	(Need to use distributed cache) Copy all the lib jars from <b>/home/rq/rocq/sparq_backend/lib</b> to <b>/usr/lib/hadoop-mapreduce/</b>
+	(Need to use distributed cache) Copy all the lib jars from <b>/home/hadoop/rocq/spahadoop_backend/lib</b> to <b>/usr/lib/hadoop-mapreduce/</b>
 	** add <b>/usr/lib/rocq</b> folder & <b>/usr/lib/hadoop-mapreduce/</b> folder jars while adding new datanodes or any other node to the cluster
 
 - ONLY on the namenode, format and start the namenode
