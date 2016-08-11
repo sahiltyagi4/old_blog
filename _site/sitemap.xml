@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd" xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
 <url>
+<loc>//spark/rdds/datasets/2016/07/10/Spark_installation/</loc>
+<lastmod>2016-07-10T16:51:29+05:30</lastmod>
+</url>
+<url>
 <loc>//hadoop/hdfs/2016/01/15/hadoop_setup/</loc>
 <lastmod>2016-01-15T16:51:29+05:30</lastmod>
 </url>

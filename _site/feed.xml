@@ -7,6 +7,58 @@
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Apache Spark-2.0.0 setup and Installation</title>
+        <description>&lt;p&gt;This post describes on how to setup the latest version of Apache Spark v2.0.0 on an Ubuntu machine. Apache Spark is an execution engine that supports cyclic data flow and performs distributed in-memory computing. Spark has been demonstrated to be around 100x faster than Hadoop in memory and around 10x faster on disk. Various APIs are available for writing application in Java, Scala, Python and R. Spark is not just limited to batch processing, but also provides real-time streaming, combines SQL, a machine learning library (MLlib) and other complex analytics. And it also runs on various tools and platforms as well, including Hadoop (HDFS), Mesos, standalone or on cloud.&lt;/p&gt;
+
+&lt;p&gt;&lt;b&gt;Please make sure you have Apache Maven installed and configured on your system!&lt;/b&gt;&lt;/p&gt;
+
+&lt;p&gt;So let’s get started with the installation!&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a new directory in &lt;b&gt;/home/spark&lt;/b&gt;, and move into that directory&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  mkdir /home/spark
+ &lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  cd /home/spark
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the latest spark v2.0.0 tar.gz file with the following command:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  wget http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;This will create the file &lt;b&gt;spark-2.0.0-bin-hadoop2.7.tgz&lt;/b&gt; in the current directory. Now untar the compressed file as:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  tar -xzvf spark-2.0.0-bin-hadoop2.7.tgz
+ &lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;This will create the file &lt;b&gt;spark-2.0.0-bin-hadoop2.7&lt;/b&gt; in the the directory.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now build the spark project with maven as:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  mvn -Pyarn -Phadoop-2.4 -Dhadoop.version=2.4.0 -DskipTests clean package
+ &lt;/code&gt;&lt;/p&gt;
+
+    &lt;p&gt;If the above step completes successfully, then you have installed spark on your system. Congratulations!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 10 Jul 2016 16:51:29 +0530</pubDate>
+        <link>//spark/rdds/datasets/2016/07/10/Spark_installation/</link>
+        <guid isPermaLink="true">//spark/rdds/datasets/2016/07/10/Spark_installation/</guid>
+      </item>
+    
+      <item>
         <title>Hadoop and HDFS setup</title>
         <description>&lt;p&gt;Hadoop, formally called Apache Hadoop, is an Apache Software Foundation project and open source software platform for scalable, distributed computing. It provides massive storage for any kind of data, enormous processing power and the ability to handle virtually limitless concurrent tasks or jobs. 
 Hadoop is designed to run on a large number of machines that don’t share any memory or disks. That means you can buy a whole bunch of commodity servers, slap them in a rack, and run the Hadoop software on each one. When you want to load all of your organization’s data into Hadoop, what the software does is bust that data into pieces that it then spreads across your different servers. There’s no one place where you go to talk to all of your data; Hadoop keeps track of where the data resides. And because there are multiple copy stores, data stored on a server that goes offline or dies can be automatically replicated from a known good copy. Hadoop is ideal for situations where you want to run analytics that are deep and computationally extensive, like clustering and targeting. It applies to a myriad of markets like finance, online retail, etc.
