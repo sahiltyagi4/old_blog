@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Apache Spark-2.0.0 setup and Installation
-date:       2016-07-10 11:21:29
+date:       2016-07-29 11:21:29
 summary:    This post describes how to setup the latest Spark-2.0.0 on an Ubuntu (Linux) server. 
 categories: spark RDDs Datasets
 ---
