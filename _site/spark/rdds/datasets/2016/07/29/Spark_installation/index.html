@@ -3,16 +3,16 @@
 <head>
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <title>Thanks For Your Message &#8211; Sahil Tyagi</title>
+    <title>Apache Spark-2.0.0 setup and Installation &#8211; Sahil Tyagi</title>
     <link rel="dns-prefetch" href="//maxcdn.bootstrapcdn.com">
     <link rel="dns-prefetch" href="//cdn.mathjax.org">
     <link rel="dns-prefetch" href="//cdnjs.cloudflare.com">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
+    <meta name="description" content="This post describes how to setup the latest Spark-2.0.0 on an Ubuntu (Linux) server.">
     <meta name="robots" content="all">
     <meta name="author" content="Sahil Tyagi">
-    
-    <link rel="canonical" href="//thanks/">
+    <meta name="keywords" content="spark, RDDs, Datasets">
+    <link rel="canonical" href="//spark/rdds/datasets/2016/07/29/Spark_installation/">
     <link rel="alternate" type="application/rss+xml" title="RSS Feed for Sahil Tyagi" href="/feed.xml" />
 
     <!-- Custom CSS -->
@@ -36,17 +36,17 @@
     <!-- From: https://github.com/mmistakes/hpstr-jekyll-theme/blob/master/_includes/head.html -->
     <meta property="og:locale" content="en_US">
     <meta property="og:type" content="article">
-    <meta property="og:title" content="Thanks For Your Message">
+    <meta property="og:title" content="Apache Spark-2.0.0 setup and Installation">
     <meta property="og:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff.">
-    <meta property="og:url" content="//thanks/">
+    <meta property="og:url" content="//spark/rdds/datasets/2016/07/29/Spark_installation/">
     <meta property="og:site_name" content="Sahil Tyagi">
 
     <!-- Twitter Card -->
     <meta name="twitter:card" content="summary" />
     
-    <meta name="twitter:title" content="Thanks For Your Message" />
-    <meta name="twitter:description" content="A simple, beautiful theme for Jekyll that emphasizes content rather than aesthetic fluff." />
-    <meta name="twitter:url" content="//thanks/" />
+    <meta name="twitter:title" content="Apache Spark-2.0.0 setup and Installation" />
+    <meta name="twitter:description" content="This post describes how to setup the latest Spark-2.0.0 on an Ubuntu (Linux) server." />
+    <meta name="twitter:url" content="//spark/rdds/datasets/2016/07/29/Spark_installation/" />
 
     <!-- Icons -->
     <link rel="apple-touch-icon" sizes="57x57" href="/apple-touch-icon-57x57.png">
@@ -122,15 +122,77 @@
 
     <div class="post p2 p-responsive wrap" role="main">
       <div class="measure">
-        <div class="post">
-  <header class="post-header">
-    <h1 class="h2">Thanks For Your Message</h1>
-  </header>
-  <article class="post-content">
-  <p>Thanks for contacting us. We will reply as soon as possible.</p>
+        
 
-  </article>
+
+<div class="post-header mb2">
+  <h1>Apache Spark-2.0.0 setup and Installation</h1>
+  <span class="post-meta">Jul 29, 2016</span><br>
+  
+  <!-- <span class="post-meta small">
+  
+    1 minute read
+  
+  </span> -->
 </div>
+
+<article class="post-content">
+  <p>This post describes on how to setup the latest version of Apache Spark v2.0.0 on an Ubuntu machine. Apache Spark is an execution engine that supports cyclic data flow and performs distributed in-memory computing. Spark has been demonstrated to be around 100x faster than Hadoop in memory and around 10x faster on disk. Various APIs are available for writing application in Java, Scala, Python and R. Spark is not just limited to batch processing, but also provides real-time streaming, combines SQL, a machine learning library (MLlib) and other complex analytics. And it also runs on various tools and platforms as well, including Hadoop (HDFS), Mesos, standalone or on cloud.</p>
+
+<p><b>Please make sure you have Apache Maven installed and configured on your system!</b></p>
+
+<p>So let’s get started with the installation!</p>
+
+<ul>
+  <li>
+    <p>Create a new directory in <b>/home/spark</b>, and move into that directory</p>
+
+    <p><code class="highlighter-rouge">
+  mkdir /home/spark
+ </code></p>
+
+    <p><code class="highlighter-rouge">
+  cd /home/spark
+ </code></p>
+  </li>
+  <li>
+    <p>Download the latest spark v2.0.0 tar.gz file with the following command:</p>
+
+    <p><code class="highlighter-rouge">
+  wget http://d3kbcqa49mib13.cloudfront.net/spark-2.0.0-bin-hadoop2.7.tgz
+ </code></p>
+  </li>
+  <li>
+    <p>This will create the file <b>spark-2.0.0-bin-hadoop2.7.tgz</b> in the current directory. Now untar the compressed file as:</p>
+
+    <p><code class="highlighter-rouge">
+  tar -xzvf spark-2.0.0-bin-hadoop2.7.tgz
+ </code></p>
+
+    <p>This will create the file <b>spark-2.0.0-bin-hadoop2.7</b> in the the directory.</p>
+  </li>
+  <li>
+    <p>Now build the spark project with maven as:</p>
+
+    <p><code class="highlighter-rouge">
+  mvn -Pyarn -Phadoop-2.4 -Dhadoop.version=2.4.0 -DskipTests clean package
+ </code></p>
+
+    <p>If the above step completes successfully, then you have installed spark on your system. Congratulations!</p>
+  </li>
+</ul>
+
+</article>
+
+
+
+
+
+
+
+
+
+
 
       </div>
     </div>

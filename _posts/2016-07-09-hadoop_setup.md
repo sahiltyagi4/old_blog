@@ -1,7 +1,7 @@
 ---
 layout:     post
 title:      Hadoop and HDFS setup
-date:       2016-01-15 11:21:29
+date:       2016-01-15 09:23:44
 summary:    This post describes how to setup Hadoop 2.2.3 (Hortonworks release) on an Ubuntu (Linux) server. 
 categories: hadoop hdfs
 ---

@@ -7,6 +7,288 @@
     <atom:link href="//feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Apache Maven setup and installation</title>
+        <description>&lt;p&gt;Apache Maven is an open source build automation tool based on the concept of project object model (POM). Maven addresses two aspects of building software: first, it describes how software is built, and second, it describes its dependencies. An XML file named pom.xml describes the software project being built, its dependencies on other external modules and components, the build order, directories, and required plug-ins. Following are the steps to install and setup apache Maven in a :&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the maven tar.gz file with the following command:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  # wget http://mirror.fibergrid.in/apache/maven/maven-3/3.3.9/binaries/apache-maven-3.3.9-bin.tar.gz
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Untar the downloaded file as:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  # tar -xzvf apache-maven-3.3.9-bin.tar.gz
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Check the environment variable value:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  echo $JAVA_HOME
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Add the path of apache maven &lt;b&gt;bin&lt;/b&gt; directory to PATH:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  export PATH=/apache-maven-3.3.9/bin:$PATH
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;And you have installed Apache Maven on your system!&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Check the version of maven installed with the command &lt;b&gt;mvn -v&lt;/b&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Sun, 07 Aug 2016 06:00:17 +0530</pubDate>
+        <link>//apache/maven/2016/08/07/Apache-Maven/</link>
+        <guid isPermaLink="true">//apache/maven/2016/08/07/Apache-Maven/</guid>
+      </item>
+    
+      <item>
+        <title>Nginx setup and Installation</title>
+        <description>&lt;p&gt;This post describes how to setup and install Nginx version 1.4.7 on an Ubuntu machine. Nginx is used as a standalone web server or as a reverse proxy. Nginx was originally developed to solve the problem of serving 10,000 concurrent connections. As a reverse proxy, Nginx acts as a front web server which passes the incoming requests on to web servers on the backend. This web server can handle SSL/HTTPS, GZip, load balancing, etc.
+So following are the steps to install nginx on a linux environment:&lt;/p&gt;
+
+&lt;ul&gt;
+  &lt;li&gt;
+    &lt;p&gt;Check if you have any version of nginx installed on your system with &lt;b&gt;nginx -v&lt;/b&gt;.&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Download the tar.gz file for nginx:&lt;/p&gt;
+
+    &lt;p&gt;&lt;code class=&quot;highlighter-rouge&quot;&gt;
+  # wget http://nginx.org/download/nginx-1.4.7.tar.gz
+ &lt;/code&gt;&lt;/p&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Before installing Nginx, we need PCRE library. Following are the steps for it:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # apt-get update
+  # apt-get install libpcre3 libpcre3-dev
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Zlib package is required as well.&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # apt-get install libgcrypt11-dev zlib1g-dev
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Install &lt;b&gt;make&lt;/b&gt; as well.&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # apt-get install make
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Since all the dependencies have now been installed, we can finally proceed to installing and setting up nginx!&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # tar -xvzf nginx-1.4.7.tar.gz
+  # cd nginx-1.4.7
+  # ./configure --prefix=/etc/nginx --sbin-path=/usr/sbin/nginx --conf-path=/etc/nginx/nginx.conf --pid-path=/var/run/nginx.pid --lock-path=/var/run/nginx.lock
+  # make
+  # make install
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Create a new dedicated user to run nginx:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # adduser --system --no-create-home --disabled-login --disabled-password --group nginx
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Lastly, we need to make Nginx a service, for which we need to add an nginx script to &lt;b&gt;/etc/init.d&lt;/b&gt;. Let us name the script &lt;b&gt;nginx&lt;/b&gt;:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  &lt;span class=&quot;c&quot;&gt;#!/bin/sh&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Provides:          nginx&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Required-Start:    $network $remote_fs $local_fs &lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Required-Stop:     $network $remote_fs $local_fs&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Default-Start:     2 3 4 5&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Default-Stop:      0 1 6&lt;/span&gt;
+  &lt;span class=&quot;c&quot;&gt;# Short-Description: Stop/start nginx&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;PATH&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/sbin:/usr/sbin:/bin:/usr/bin
+  &lt;span class=&quot;nv&quot;&gt;DESC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nginx
+  &lt;span class=&quot;nv&quot;&gt;NAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;nginx
+  &lt;span class=&quot;nv&quot;&gt;CONFFILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/nginx/nginx.conf
+  &lt;span class=&quot;nv&quot;&gt;DAEMON&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/usr/sbin/nginx
+  &lt;span class=&quot;nv&quot;&gt;PIDFILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/var/run/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;.pid
+  &lt;span class=&quot;nv&quot;&gt;SCRIPTNAME&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;/etc/init.d/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+  &lt;span class=&quot;nv&quot;&gt;SLEEPSEC&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+  &lt;span class=&quot;nv&quot;&gt;UPGRADEWAITLOOPS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;5
+
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -x &lt;span class=&quot;nv&quot;&gt;$DAEMON&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;0
+
+  &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -r /etc/default/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; . /etc/default/&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+
+  &lt;span class=&quot;nv&quot;&gt;DAEMON_ARGS&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;-c &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$CONFFILE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DAEMON_ARGS&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+
+  . /lib/init/vars.sh
+
+  . /lib/lsb/init-functions
+
+  do_start&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  		start-stop-daemon --start --quiet --pidfile &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt; --exec &lt;span class=&quot;nv&quot;&gt;$DAEMON&lt;/span&gt; -- &lt;span class=&quot;se&quot;&gt;\&lt;/span&gt;
+  	&lt;span class=&quot;nv&quot;&gt;$DAEMON_ARGS&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  do_stop&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;# Return&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;#   0 if daemon has been stopped&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;#   1 if daemon was already stopped&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;#   2 if daemon could not be stopped&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;#   other if a failure occurred&lt;/span&gt;
+  		start-stop-daemon --stop --quiet --retry&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;TERM/30/KILL/5 --pidfile &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt; --name &lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  		rm -f &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  do_reload&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  		&lt;span class=&quot;c&quot;&gt;#&lt;/span&gt;
+  		start-stop-daemon --stop --signal HUP --quiet --pidfile &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt; --name &lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  do_configtest&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;$#&quot;&lt;/span&gt; -ne 0 &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+  	case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt;
+      -q&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;nv&quot;&gt;FLAG&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+      &lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+  	&lt;span class=&quot;nb&quot;&gt;shift
+  		&lt;/span&gt;&lt;span class=&quot;k&quot;&gt;fi&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;$DAEMON&lt;/span&gt; -t &lt;span class=&quot;nv&quot;&gt;$FLAG&lt;/span&gt; -c &lt;span class=&quot;nv&quot;&gt;$CONFFILE&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  do_upgrade&lt;span class=&quot;o&quot;&gt;()&lt;/span&gt; 
+  &lt;span class=&quot;o&quot;&gt;{&lt;/span&gt;
+ 			&lt;span class=&quot;nv&quot;&gt;OLDBINPIDFILE&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt;.oldbin
+  		do_configtest -q &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;return &lt;/span&gt;6
+  		start-stop-daemon --stop --signal USR2 --quiet --pidfile &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt; --name &lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+  		&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;for &lt;/span&gt;i &lt;span class=&quot;k&quot;&gt;in&lt;/span&gt; &lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;/usr/bin/seq  &lt;span class=&quot;nv&quot;&gt;$UPGRADEWAITLOOPS&lt;/span&gt;&lt;span class=&quot;sb&quot;&gt;`&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;do
+  		&lt;/span&gt;sleep &lt;span class=&quot;nv&quot;&gt;$SLEEPSEC&lt;/span&gt;
+  		&lt;span class=&quot;k&quot;&gt;if&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; -f &lt;span class=&quot;nv&quot;&gt;$OLDBINPIDFILE&lt;/span&gt; -a -f &lt;span class=&quot;nv&quot;&gt;$PIDFILE&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt;; &lt;span class=&quot;k&quot;&gt;then
+      	&lt;/span&gt;start-stop-daemon --stop --signal QUIT --quiet --pidfile &lt;span class=&quot;nv&quot;&gt;$OLDBINPIDFILE&lt;/span&gt; --name &lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;
+      	&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+      	&lt;span class=&quot;k&quot;&gt;return
+  	fi
+  		done
+  			&lt;/span&gt;&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;$&quot;Upgrade failed!&quot;&lt;/span&gt;
+  			&lt;span class=&quot;nv&quot;&gt;RETVAL&lt;/span&gt;&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt;1
+  			&lt;span class=&quot;k&quot;&gt;return&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;
+  &lt;span class=&quot;o&quot;&gt;}&lt;/span&gt;
+
+  &lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$1&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+  	&lt;/span&gt;start&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_daemon_msg &lt;span class=&quot;s2&quot;&gt;&quot;Starting &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DESC&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; &quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  	do_start
+  	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+      	&lt;/span&gt;0|1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_end_msg 0 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+      	2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_end_msg 1 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	stop&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	&lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_daemon_msg &lt;span class=&quot;s2&quot;&gt;&quot;Stopping &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DESC&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  	do_stop
+  	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+      	&lt;/span&gt;0|1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_end_msg 0 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+      	2&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;[&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$VERBOSE&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; !&lt;span class=&quot;o&quot;&gt;=&lt;/span&gt; no &lt;span class=&quot;o&quot;&gt;]&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; log_end_msg 1 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+	status&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	status_of_proc &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DAEMON&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;o&quot;&gt;&amp;amp;&amp;amp;&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;0 &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+	configtest&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	do_configtest
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+	upgrade&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	do_upgrade
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+	reload|force-reload&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	log_daemon_msg &lt;span class=&quot;s2&quot;&gt;&quot;Reloading &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DESC&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  	do_reload
+  	log_end_msg &lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+	restart|force-reload&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	log_daemon_msg &lt;span class=&quot;s2&quot;&gt;&quot;Restarting &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$DESC&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$NAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;
+  	do_configtest -q &lt;span class=&quot;o&quot;&gt;||&lt;/span&gt; &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;
+  	do_stop
+  	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+      	&lt;/span&gt;0|1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          	do_start
+          	&lt;span class=&quot;k&quot;&gt;case&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$?&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt;&quot;&lt;/span&gt; &lt;span class=&quot;k&quot;&gt;in
+              	&lt;/span&gt;0&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; log_end_msg 0 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+              	1&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; log_end_msg 1 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Old process is still running&lt;/span&gt;
+              	&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt; log_end_msg 1 &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt; &lt;span class=&quot;c&quot;&gt;# Failed to start&lt;/span&gt;
+         		&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+          	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+      	&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+          &lt;span class=&quot;c&quot;&gt;# Failed to stop&lt;/span&gt;
+          log_end_msg 1
+          &lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  	&lt;span class=&quot;k&quot;&gt;*&lt;/span&gt;&lt;span class=&quot;p&quot;&gt;)&lt;/span&gt;
+  	&lt;span class=&quot;nb&quot;&gt;echo&lt;/span&gt; &lt;span class=&quot;s2&quot;&gt;&quot;Usage: &lt;/span&gt;&lt;span class=&quot;nv&quot;&gt;$SCRIPTNAME&lt;/span&gt;&lt;span class=&quot;s2&quot;&gt; {start|stop|status|restart|reload|force-reload|upgrade|configtest}&quot;&lt;/span&gt; &amp;gt;&amp;amp;2
+  	&lt;span class=&quot;nb&quot;&gt;exit &lt;/span&gt;3
+  	&lt;span class=&quot;p&quot;&gt;;;&lt;/span&gt;
+  &lt;span class=&quot;k&quot;&gt;esac&lt;/span&gt;
+
+  &lt;span class=&quot;nb&quot;&gt;exit&lt;/span&gt; &lt;span class=&quot;nv&quot;&gt;$RETVAL&lt;/span&gt;
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;Now make the file executable:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # chmod +x /etc/init.d/nginx
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;And finally:&lt;/p&gt;
+
+    &lt;div class=&quot;highlighter-rouge&quot;&gt;&lt;pre class=&quot;highlight&quot;&gt;&lt;code&gt;  # /usr/sbin/update-rc.d -f nginx defaults
+&lt;/code&gt;&lt;/pre&gt;
+    &lt;/div&gt;
+  &lt;/li&gt;
+  &lt;li&gt;
+    &lt;p&gt;And that’s it! We have installed Nginx on our linux machine, and we can start nginx woth the command &lt;b&gt;nginx start&lt;/b&gt;. Cheers!&lt;/p&gt;
+  &lt;/li&gt;
+&lt;/ul&gt;
+</description>
+        <pubDate>Thu, 04 Aug 2016 00:26:37 +0530</pubDate>
+        <link>//nginx/load-balancer/2016/08/04/Nginx/</link>
+        <guid isPermaLink="true">//nginx/load-balancer/2016/08/04/Nginx/</guid>
+      </item>
+    
+      <item>
         <title>Apache Spark-2.0.0 setup and Installation</title>
         <description>&lt;p&gt;This post describes on how to setup the latest version of Apache Spark v2.0.0 on an Ubuntu machine. Apache Spark is an execution engine that supports cyclic data flow and performs distributed in-memory computing. Spark has been demonstrated to be around 100x faster than Hadoop in memory and around 10x faster on disk. Various APIs are available for writing application in Java, Scala, Python and R. Spark is not just limited to batch processing, but also provides real-time streaming, combines SQL, a machine learning library (MLlib) and other complex analytics. And it also runs on various tools and platforms as well, including Hadoop (HDFS), Mesos, standalone or on cloud.&lt;/p&gt;
 
@@ -53,9 +335,9 @@
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Sun, 10 Jul 2016 16:51:29 +0530</pubDate>
-        <link>//spark/rdds/datasets/2016/07/10/Spark_installation/</link>
-        <guid isPermaLink="true">//spark/rdds/datasets/2016/07/10/Spark_installation/</guid>
+        <pubDate>Fri, 29 Jul 2016 16:51:29 +0530</pubDate>
+        <link>//spark/rdds/datasets/2016/07/29/Spark_installation/</link>
+        <guid isPermaLink="true">//spark/rdds/datasets/2016/07/29/Spark_installation/</guid>
       </item>
     
       <item>
@@ -845,7 +1127,7 @@ NameNode
   &lt;/li&gt;
 &lt;/ul&gt;
 </description>
-        <pubDate>Fri, 15 Jan 2016 16:51:29 +0530</pubDate>
+        <pubDate>Fri, 15 Jan 2016 14:53:44 +0530</pubDate>
         <link>//hadoop/hdfs/2016/01/15/hadoop_setup/</link>
         <guid isPermaLink="true">//hadoop/hdfs/2016/01/15/hadoop_setup/</guid>
       </item>
