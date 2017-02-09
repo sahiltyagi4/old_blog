@@ -1,6 +1,6 @@
 ---
 layout:     post
-title:      The Internet of Things
+title:      Starting with Raspberry Pi 3
 date:       2017-02-09 23:30:27
 summary:    This post describes how to configure and setup a Raspberry Pi 3 and proceed to implement a home automation system
 categories: Raspberry Pi 3 Model B, Internet of Things, Python
