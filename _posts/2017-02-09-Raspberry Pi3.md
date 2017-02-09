@@ -16,28 +16,28 @@ After collecting the required harware, I started with the software on my Windows
 
 The default username and password for the Raspberry Pi is <b>pi</b> and <b>raspberry</b> respectively. To be able to remotely login to the Pi from the convenience of your laptop or PC, you'll need to do setup SSH connection. The Raspbian OS comes pre-loaded the OpenSSH server to be able to do SSH in remote machines. If you have installed any other OS, it may or may not come with the pre-requisites so open the terminal in the Raspberry Pi to update and load the required software packages:
 
-	```
+	
 	pi@raspberrypi$ sudo apt-get update && sudo apt-get upgrade
-	```
+	
 
-	```
+	
 	pi@raspberrypi$ sudo apt-get install openssh-server openssh-client
-	```
+	
 
 
 After the above command is executed successfully, go back to your laptop/PC and download Advanced IP Scanner from <a href="http://filehippo.com/download_advanced_ip_scanner/?utm_source=FT&utm_medium=Redirect&utm_campaign=AIS"><i>here</i></a>. This tools provides a list of all connected devices to a network along with their corresponding dynamic IP address. After downloading and installing the Advanced IP Scanner, run and scan to find the IP address of the raspberry pi. <b>Make sure that both the PC and the Raspberry Pi are connected on the same network connection</b>. Fetch and note the IP address corresponding to the device name <b>raspberrypi</b>. If you're using a Mac or Linux, then you can directly use the terminal by typing <b>ssh -i pi@**Raspberry Pi IP**</b> and provide the password in the second line. If yo're using Windows, then you can download the SSH client PuTTY from <a href="http://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html"><i>here</i></a> and install the application. Just enter the IP of the remote host and enter the required credentials. And that's it! You have successfully setup and remotely accessed your Raspberry Pi.
 
 The Raspbian OS comes preloaded with Java, Scala and Python (both version 2.7 and version 3.4.2) along with some more. I'll be using Python to build my project on the side of the Raspberry Pi. If you used a different OS image and it doesn't have python installed, you can do it yourself by:
 
-	```
+	
 	pi@raspberrypi$ sudo apt-get install python3.4
 	pi@raspberrypi$ sudo apt-get install python-pip
-	```
+	
 
 To get started with coding Raspberry Pi, we'll also need to download the corresponding Python package by:
 
-	```
+	
 	pi@raspberrypi$ pip install RPi.GPIO
-	```
+	
 
 So this wraps up this post. I am currently working this package to be able to send data across to a back-end system for processing based on certain input values at GPIO pins. After that, I'll try to make this interaction wireless. I will describe these in more detail in upcoming posts...
