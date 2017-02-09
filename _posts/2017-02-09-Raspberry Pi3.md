@@ -19,7 +19,6 @@ The default username and password for the Raspberry Pi is <b>pi</b> and <b>raspb
 	
 	pi@raspberrypi$ sudo apt-get update && sudo apt-get upgrade
 	
-
 	
 	pi@raspberrypi$ sudo apt-get install openssh-server openssh-client
 	
@@ -31,6 +30,7 @@ The Raspbian OS comes preloaded with Java, Scala and Python (both version 2.7 an
 
 	
 	pi@raspberrypi$ sudo apt-get install python3.4
+	
 	pi@raspberrypi$ sudo apt-get install python-pip
 	
 
